@@ -1,0 +1,132 @@
+{% extends '/admin/base.html' %}
+{% block main_content %}
+    <div class="row">
+        <div class="col-xl-6 d-flex">
+            <div class="card flex-fill">
+                <div class="card-header">
+                    {% if user %}
+                        <h4 class="card-title">用户信息</h4>
+                    {% else %}
+                        <h4 class="card-title">用户信息 / 添加用户</h4>
+                    {% endif %}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p style="color: #e33a1a">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post">
+                        {{ form.csrf_token }}
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">姓</label>
+                            <div class="col-lg-9">
+                                {% if user %}
+                                    {% if form.last_name.errors %}
+                                        <input type="text" class="form-control" name="last_name"
+                                               placeholder={{ form.last_name.errors[0] }} id="last_name">
+                                    {% else %}
+                                        <input type="text" class="form-control" name="last_name"
+                                               value="{{ user.Last_Name }}">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="text" class="form-control" name="last_name" id="last_name">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">名</label>
+                            <div class="col-lg-9">
+                                 {% if user %}
+                                    {% if form.first_name.errors %}
+                                        <input type="text" class="form-control" name="first_name"
+                                               placeholder={{ form.first_name.errors[0] }} id="first_name">
+                                    {% else %}
+                                        <input type="text" class="form-control" name="first_name"
+                                               value="{{ user.First_Name }}">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="text" class="form-control" name="first_name" id="first_name">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">电子邮箱</label>
+                            <div class="col-lg-9">
+                                {% if user %}
+                                    {% if form.mail_addr.errors %}
+                                        <input type="text" class="form-control" name="mail_addr"
+                                               placeholder={{ form.mail_addr.errors[0] }} id="mail_addr">
+                                    {% else %}
+                                        <input type="text" class="form-control" name="mail_addr"
+                                               value="{{ user.Mail_Addr }}"
+                                               id="mail_addr">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="text" class="form-control" name="mail_addr">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">手机号码</label>
+                            <div class="col-lg-9">
+                                {% if user %}
+                                    {% if form.mobile.errors %}
+                                        <input type="text" class="form-control" name="mobile"
+                                               placeholder={{ form.mobile.errors[0] }} id="mobile">
+                                    {% else %}
+                                        <input type="text" class="form-control" name="mobile" value="{{ user.Mobile }}"
+                                               id="mobile">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="text" class="form-control" name="mobile" id="mobile">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">密码</label>
+                            <div class="col-lg-9">
+                                {% if user %}
+                                    {% if form.password.errors %}
+                                        <input type="password" class="form-control" name="password"
+                                               placeholder={{ form.password.errors[0] }} id="password">
+                                    {% else %}
+                                        <input type="password" class="form-control" name="password"
+                                               value="{{ user.Password }}"
+                                               id="mobile">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="password" class="form-control" name="password" id="password">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">重复密码</label>
+                            <div class="col-lg-9">
+                                {% if user %}
+                                    {% if form.re_password.errors %}
+                                        <input type="password" class="form-control" name="re_password"
+                                               placeholder={{ form.re_password.errors[0] }} id="re_password">
+                                    {% else %}
+                                        <input type="password" class="form-control" name="re_password"
+                                               value="{{ user.Password }}"
+                                               id="mobile">
+                                    {% endif %}
+                                {% else %}
+                                    <input type="password" class="form-control" name="re_password" id="re_password">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">确认提交</button>
+                            <button type="reset" class="btn btn-success">全部重置</button>
+                            <a href="{{ url_for('admin.users') }}" , class="btn btn-danger">返回列表</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

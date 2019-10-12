@@ -1,0 +1,34 @@
+{% extends '/admin/base.html' %}
+{% block main_content %}
+    <p class="h2">用户列表</p>
+    <table class="table table-striped" style="width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" style="width: auto">用户姓名</th>
+            <th scope="col" style="width: auto">邮箱地址</th>
+            <th scope="col" style="width: auto">手机号码</th>
+            <th scope="col" style="width: auto">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.User_Name }}</td>
+                <td>{{ user.Mail_Addr }}</td>
+                <td>{{ user.Mobile }}</td>
+                <td>
+                    <div class="actions">
+                        <a href={{ url_for('admin.useredit',mail_addr = user.Mail_Addr) }} class="btn btn-sm
+                           bg-success-light mr-2">
+                        <i class="fe fe-pencil">编辑</i>
+                        </a>
+                        <a href={{ url_for('admin.userdelete',mail_addr = user.Mail_Addr) }} class="btn btn-sm
+                           bg-danger-light">
+                        <i class="fe fe-trash">删除</i>
+                        </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+{% endblock %}
